@@ -1,0 +1,10 @@
+node_modules
+authentication-lambda/dist
+authentication-lambda/lambda.zip
+
+
+infrastructure/terraform.tfstate
+infrastructure/terraform.tfstate.backup
+infrastructure/.terraform
+
+.DS_store

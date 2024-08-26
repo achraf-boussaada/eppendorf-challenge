@@ -1,0 +1,30 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "UserAuthenticationService",
+        "version": "1.0"
+    },
+    "paths": {
+        "/authenticate": {
+            "post": {
+                "x-amazon-apigateway-integration": {
+                    "httpMethod": "POST",
+                    "payloadFormatVersion": "1.0",
+                    "type": "AWS_PROXY",
+                    "uri": "${url}"
+                },
+                "responses": {
+                    "200": {
+                        "description": "200 response"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        }
+    }
+}

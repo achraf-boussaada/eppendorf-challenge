@@ -1,0 +1,6 @@
+{
+    "httpMethod": "POST",
+    "headers": {
+        "Authorization": "Basic YWRtaW46ZXBwZW5kb3Jm"
+    }
+}
