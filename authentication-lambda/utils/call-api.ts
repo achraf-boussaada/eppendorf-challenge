@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const { DynamoDBClient, PutItemCommand } = require("@aws-sdk/client-dynamodb")
-const bcryptjs = require('bcryptjs')
-const uuidv4 = require('uuid').v4
-const axios = require('axios')
+import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb"
+import * as bcryptjs from 'bcryptjs'
+import { v4 as uuidv4 } from 'uuid'
+import axios, { AxiosResponse } from 'axios'
 
 
 const id = uuidv4()
@@ -10,13 +9,12 @@ const validUser = { username: 'admin', password: 'eppendorf' }
 const invalidUser = { username: 'admin', password: 'trustMeImAnAdmin' }
 
 // Function to encode user credentials in base64 format
-const getBase64Credentials = (username, password) => {
+const getBase64Credentials = (username: string, password: string): string => {
     return Buffer.from(`${username}:${password}`).toString('base64')
 }
 
 // Use to add a new User
-const addTestUser = async () => {
-
+const addTestUser = async (): Promise<void> => {
     // Creating a new instance of DynamoDB client
     const dbClient = new DynamoDBClient({ region: 'eu-central-1' })
 
@@ -46,28 +44,22 @@ const addTestUser = async () => {
     }
 }
 
-
-
-const authenticateTestUser = async () => {
+const authenticateTestUser = async (): Promise<void> => {
     const apiGatewayUrl = process.env.API_GATEWAY_URL || ''
     try {
-
         // NOTE: executing this multiple times will create duplicate users. Uncomment only after changing the validUser username property
-        // addTestUser()
+        // await addTestUser();
 
         // Making a POST request to the API Gateway URL
-        const response = await axios.post(apiGatewayUrl, {}, {
+        const response: AxiosResponse = await axios.post(apiGatewayUrl, {}, {
             headers: {
                 Authorization: `Basic ${getBase64Credentials(validUser.username, validUser.password)}` // will return 200 for validUser and 401 for invalidUser
             }
         })
         console.log(response.data)
     } catch (error) {
-        console.log('Error while authenticating test user:', error.message)
+        console.log('Error while authenticating test user:', error)
     }
-
-
 }
-
 
 authenticateTestUser()
