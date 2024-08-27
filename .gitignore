@@ -1,7 +1,7 @@
 node_modules
 authentication-lambda/dist
 authentication-lambda/lambda.zip
-
+authentication-lambda/coverage
 
 infrastructure/terraform.tfstate
 infrastructure/terraform.tfstate.backup

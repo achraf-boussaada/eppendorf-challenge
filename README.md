@@ -2,11 +2,12 @@
 
 This project deploys an AWS Lambda function written in TypeScript for user authentication. It utilizes an API Gateway and DynamoDB table, with all resources managed using Terraform.
 
-## Why TypeScript, Node.js, and bcryptjs?
+## Why TypeScript, Node.js, bcryptjs and Jest?
 
 - **TypeScript:** Selected for its strong typing, IntelliSense (code completions) and powerful tools for large scale applications. This superset of JavaScript brings the power of static type-checking along with modern ECMAScript features, enhancing developer productivity by catching mistakes early during development.
 - **Node.js:** Chosen due to its non-blocking, event-driven architecture, making it suitable for back-end services like this one which needs to handle multiple simultaneous requests efficiently.
 - **bcryptjs:** Used for its secure password hashing function. bcryptjs is widely-regarded as a secure choice for password hashing because it incorporates salting (adding random data to each user's password) and adaptive key stretching (increasing computational load over time).
+- **Jest:** Jest for testing because it is one of the best JavaScript test runners available. It has a clear and feature-rich API, making writing tests easier and quicker. With features built-in coverage reporting, and a robust mocking library, Jest is a great choice for any scale of project.
 
 ## Project Structure
 
@@ -20,9 +21,11 @@ eppendorf-challenge/
 │   ├── src
 │   │   └── lambda.ts
 │   ├── tsconfig.json
-│   └── utils
-│       ├── call-api.js
-│       └── event.json
+│   ├── utils
+│   │   ├── call-api.ts
+│   │   └── event.json
+│   └── __tests__
+│       └── handler.test.ts
 └── infrastructure
     ├── api-gateway.tf
     ├── api-schema.json
@@ -98,4 +101,12 @@ curl -X POST https://xs2pqecd73.execute-api.eu-central-1.amazonaws.com/testing/a
 
 Run `npm run lint` to execute ESLint on all TypeScript and JSON files. This should be done manually if auto-linting isn't configured in your IDE.
 
-The `call-api.js` and `event.json` under the `utils` directory are purely for testing purposes; they aren't included during packaging and deployment. They're typically not present in this format for real-world projects.
+The `call-api.ts` and `event.json` under the `utils` directory are purely for testing purposes; they aren't included during packaging and deployment. They're typically not present in this format for real-world projects.
+
+This project contains also unit tests that can be found within `authentication-lambda/__tests__/handler.test.ts`. To run them, execute:
+
+```bash
+npm run test
+```
+
+This will run your tests located in the tests directory using Jest.

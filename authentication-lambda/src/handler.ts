@@ -3,7 +3,7 @@ import { DynamoDBClient, QueryCommand } from "@aws-sdk/client-dynamodb"
 import bcryptjs from 'bcryptjs'
 
 
-const checkCredentials = async (authHeader: string): Promise<boolean> => {
+export const checkCredentials = async (authHeader: string): Promise<boolean> => {
     try {
         const [type, base64Credentials] = authHeader.split(' ')
         if (type !== "Basic") throw new Error("Only Basic authentication is supported")
@@ -58,7 +58,7 @@ const unauthorized = (message: string): APIGatewayProxyResult => {
 }
 
 // Main Lambda handler function
-exports.handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     const authHeader = event.headers['Authorization']
 
     if (!authHeader) {
